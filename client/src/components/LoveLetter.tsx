@@ -71,7 +71,7 @@ export default function LoveLetter() {
     if (currentParagraph < letterContent.length - 1) {
       const timer = setTimeout(() => {
         setCurrentParagraph(prev => prev + 1);
-      }, 3000 + currentParagraph * 500); // Increasing delay for longer paragraphs
+      }, 800 + currentParagraph * 200); // Faster text appearance
       
       return () => clearTimeout(timer);
     }
