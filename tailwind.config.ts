@@ -73,7 +73,7 @@ export default {
         "sidebar-accent": {
           DEFAULT: "hsl(var(--sidebar-accent) / <alpha-value>)",
           foreground: "hsl(var(--sidebar-accent-foreground) / <alpha-value>)",
-          border: "hsl(var(--sidebar-accent-border) / <alpha-value>)"
+          border: "hsl(var(--sidebar-accent-border) / <alpha-value>)",
         },
         status: {
           online: "rgb(34 197 94)",
