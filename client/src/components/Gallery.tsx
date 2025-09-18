@@ -68,13 +68,6 @@ export default function Gallery() {
             </div>
 
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-              <Link href="/">
-                <Button variant="outline" className="hover-elevate w-full sm:w-auto">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back Home
-                </Button>
-              </Link>
-              
               <Button 
                 onClick={() => setShowVideo(true)}
                 className="bg-gradient-to-r from-accent to-primary hover-elevate shadow-lg w-full sm:w-auto text-sm sm:text-base"
@@ -82,6 +75,13 @@ export default function Gallery() {
                 <Play className="w-4 h-4 mr-2" />
                 Wanna See Us Kiss Together
               </Button>
+              
+              <Link href="/">
+                <Button variant="outline" className="hover-elevate w-full sm:w-auto">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back Home
+                </Button>
+              </Link>
             </div>
           </div>
         </Card>
