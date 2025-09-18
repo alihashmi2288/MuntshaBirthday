@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Link } from 'wouter';
-import { ArrowLeft, X } from 'lucide-react';
+import { ArrowLeft, X, Play } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import shinChanImg from '@assets/generated_images/Shin_Chan_character_image_5f6a317d.png';
 import whatsappImg1 from '@assets/WhatsApp Image 2025-09-13 at 15.21.36_5518dbbf_1757966541328.jpg';
@@ -10,18 +10,28 @@ import whatsappImg2 from '@assets/WhatsApp Image 2025-09-18 at 13.30.06_0442815b
 import whatsappImg3 from '@assets/WhatsApp Image 2025-09-18 at 13.30.07_55787989.jpg';
 import whatsappImg4 from '@assets/WhatsApp Image 2025-09-18 at 13.30.07_80dc95af.jpg';
 import whatsappImg5 from '@assets/WhatsApp Image 2025-09-18 at 13.30.07_df74f5c1.jpg';
+import whatsappImg6 from '@assets/WhatsApp Image 2025-09-18 at 14.46.19_405a7eb2.jpg';
+import whatsappImg7 from '@assets/WhatsApp Image 2025-09-18 at 14.46.19_46e8f2fd.jpg';
+import whatsappImg8 from '@assets/WhatsApp Image 2025-09-18 at 14.46.19_d07fd2c7.jpg';
+import whatsappImg9 from '@assets/WhatsApp Image 2025-09-18 at 14.46.20_1f2e4ce2.jpg';
+import kissVideo from '@assets/WhatsApp Video 2025-09-18 at 14.54.23_d8830ac0.mp4';
 
 const galleryImages = [
-  { id: 2, src: shinChanImg, alt: 'Shin Chan' },
-  { id: 3, src: whatsappImg1, alt: 'Memory 1' },
-  { id: 4, src: whatsappImg2, alt: 'Memory 2' },
-  { id: 5, src: whatsappImg3, alt: 'Memory 3' },
-  { id: 6, src: whatsappImg4, alt: 'Memory 4' },
-  { id: 7, src: whatsappImg5, alt: 'Memory 5' },
+  { id: 2, src: shinChanImg, alt: 'Shin Chan', type: 'image' },
+  { id: 3, src: whatsappImg1, alt: 'Memory 1', type: 'image' },
+  { id: 4, src: whatsappImg2, alt: 'Memory 2', type: 'image' },
+  { id: 5, src: whatsappImg3, alt: 'Memory 3', type: 'image' },
+  { id: 6, src: whatsappImg4, alt: 'Memory 4', type: 'image' },
+  { id: 7, src: whatsappImg5, alt: 'Memory 5', type: 'image' },
+  { id: 8, src: whatsappImg6, alt: 'Memory 6', type: 'image' },
+  { id: 9, src: whatsappImg7, alt: 'Memory 7', type: 'image' },
+  { id: 10, src: whatsappImg8, alt: 'Memory 8', type: 'image' },
+  { id: 11, src: whatsappImg9, alt: 'Memory 9', type: 'image' },
 ];
 
 export default function Gallery() {
-  const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
+  const [selectedImage, setSelectedImage] = useState<(typeof galleryImages[0]) | null>(null);
+  const [showVideo, setShowVideo] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent/20 via-primary/10 to-accent/30 relative overflow-hidden">
@@ -40,7 +50,7 @@ export default function Gallery() {
           </div>
 
           <div className="p-6">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
               {galleryImages.map((image) => (
                 <div
                   key={image.id}
@@ -57,21 +67,29 @@ export default function Gallery() {
               ))}
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-4">
               <Link href="/">
                 <Button variant="outline" className="hover-elevate">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back Home
                 </Button>
               </Link>
+              
+              <Button 
+                onClick={() => setShowVideo(true)}
+                className="bg-gradient-to-r from-accent to-primary hover-elevate shadow-lg"
+              >
+                <Play className="w-4 h-4 mr-2" />
+                Wanna See Us Kiss Together
+              </Button>
             </div>
           </div>
         </Card>
       </div>
 
       {selectedImage && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-          <div className="relative max-w-4xl max-h-full">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4" onClick={() => setSelectedImage(null)}>
+          <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
             <Button
               variant="outline"
               size="icon"
@@ -85,7 +103,27 @@ export default function Gallery() {
               alt={selectedImage.alt}
               className="max-w-full max-h-full object-contain rounded-lg"
             />
+          </div>
+        </div>
+      )}
 
+      {showVideo && (
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4" onClick={() => setShowVideo(false)}>
+          <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute top-4 right-4 z-10"
+              onClick={() => setShowVideo(false)}
+            >
+              <X className="w-4 h-4" />
+            </Button>
+            <video
+              src={kissVideo}
+              controls
+              autoPlay
+              className="max-w-full max-h-full rounded-lg"
+            />
           </div>
         </div>
       )}
