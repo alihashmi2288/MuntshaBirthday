@@ -7,6 +7,7 @@ import Birthday from "@/pages/Birthday";
 import Game from "@/pages/Game";
 import Letter from "@/pages/Letter";
 import Fireworks from "@/pages/Fireworks";
+import Gallery from "@/pages/Gallery";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/game" component={Game} />
       <Route path="/letter" component={Letter} />
       <Route path="/fireworks" component={Fireworks} />
+      <Route path="/gallery" component={Gallery} />
       <Route component={NotFound} />
     </Switch>
   );

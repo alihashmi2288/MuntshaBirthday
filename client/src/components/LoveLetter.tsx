@@ -202,7 +202,7 @@ export default function LoveLetter() {
         </Card>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes floatUp {
           0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
           10% { opacity: 0.4; }

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Link } from 'wouter';
-import { Play, Sparkles, Heart } from 'lucide-react';
+import { Play, Sparkles, Heart, Camera } from 'lucide-react';
 import FloatingElement from './FloatingElement';
 import ThemeToggle from './ThemeToggle';
 import shinChanImg from '@assets/generated_images/Shin_Chan_character_image_5f6a317d.png';
@@ -133,10 +133,10 @@ export default function LandingPage() {
           </div>
 
           {/* Option Cards */}
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-6">
             {/* Play Game Option */}
-            <Link href="/game">
-              <Card className="p-6 text-center cursor-pointer transition-all duration-500 hover-elevate hover:scale-105 hover:-translate-y-2 backdrop-blur-lg bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 animate-slideUp animation-delay-200"
+            <Link href="/game" className="h-full">
+              <Card className="h-full p-6 text-center cursor-pointer transition-all duration-500 hover-elevate hover:scale-105 hover:-translate-y-2 backdrop-blur-lg bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 animate-slideUp animation-delay-200"
                     data-testid="card-play-game">
                 <div className="text-5xl mb-4 animate-bounce" data-testid="icon-play">
                   🎮
@@ -153,8 +153,8 @@ export default function LandingPage() {
             </Link>
 
             {/* Fireworks Option */}
-            <Link href="/fireworks">
-              <Card className="p-6 text-center cursor-pointer transition-all duration-500 hover-elevate hover:scale-105 hover:-translate-y-2 backdrop-blur-lg bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20 animate-slideUp animation-delay-400"
+            <Link href="/fireworks" className="h-full">
+              <Card className="h-full p-6 text-center cursor-pointer transition-all duration-500 hover-elevate hover:scale-105 hover:-translate-y-2 backdrop-blur-lg bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20 animate-slideUp animation-delay-400"
                     data-testid="card-fireworks">
                 <div className="text-5xl mb-4 animate-bounce animation-delay-500" data-testid="icon-fireworks">
                   🎆
@@ -171,18 +171,36 @@ export default function LandingPage() {
             </Link>
 
             {/* Letter Option */}
-            <Link href="/letter">
-              <Card className="p-6 text-center cursor-pointer transition-all duration-500 hover-elevate hover:scale-105 hover:-translate-y-2 backdrop-blur-lg bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 animate-slideUp animation-delay-600"
+            <Link href="/letter" className="h-full">
+              <Card className="h-full p-6 text-center cursor-pointer transition-all duration-500 hover-elevate hover:scale-105 hover:-translate-y-2 backdrop-blur-lg bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 animate-slideUp animation-delay-600"
                     data-testid="card-letter">
                 <div className="text-5xl mb-4 animate-bounce animation-delay-1000" data-testid="icon-letter">
                   💌
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">Love Letter</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Letter</h3>
                 <p className="text-muted-foreground text-sm">A heartfelt letter for my beloved Muntsha!</p>
                 <div className="mt-4">
                   <Button variant="outline" className="hover-elevate">
                     <Heart className="w-4 h-4 mr-2" />
                     Read Letter
+                  </Button>
+                </div>
+              </Card>
+            </Link>
+
+            {/* Gallery Option */}
+            <Link href="/gallery" className="h-full">
+              <Card className="h-full p-6 text-center cursor-pointer transition-all duration-500 hover-elevate hover:scale-105 hover:-translate-y-2 backdrop-blur-lg bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20 animate-slideUp animation-delay-800"
+                    data-testid="card-gallery">
+                <div className="text-5xl mb-4 animate-bounce animation-delay-1500" data-testid="icon-gallery">
+                  📸
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">Gallery</h3>
+                <p className="text-muted-foreground text-sm">Pictures!</p>
+                <div className="mt-4">
+                  <Button variant="outline" className="hover-elevate">
+                    <Camera className="w-4 h-4 mr-2" />
+                    View Gallery
                   </Button>
                 </div>
               </Card>
