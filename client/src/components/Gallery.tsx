@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Link } from 'wouter';
-import { ArrowLeft, X, Play } from 'lucide-react';
+import { ArrowLeft, X, Play, Lock } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import ThemeToggle from './ThemeToggle';
 import shinChanImg from '@assets/generated_images/Shin_Chan_character_image_5f6a317d.png';
 import whatsappImg1 from '@assets/WhatsApp Image 2025-09-13 at 15.21.36_5518dbbf_1757966541328.jpg';
@@ -32,6 +33,73 @@ const galleryImages = [
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<(typeof galleryImages[0]) | null>(null);
   const [showVideo, setShowVideo] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [showPasswordError, setShowPasswordError] = useState(false);
+
+  const handlePasswordSubmit = () => {
+    if (password === 'muntshaali') {
+      setIsAuthenticated(true);
+      setShowPasswordError(false);
+    } else {
+      setShowPasswordError(true);
+      setTimeout(() => setShowPasswordError(false), 3000);
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-accent/20 via-primary/10 to-accent/30 relative overflow-hidden flex items-center justify-center p-4">
+        <div className="absolute top-4 right-4 z-50">
+          <ThemeToggle />
+        </div>
+        
+        <Card className="max-w-md w-full backdrop-blur-xl bg-card/95 border-2 border-accent/30 shadow-2xl rounded-3xl p-8">
+          <div className="text-center mb-6">
+            <Lock className="w-16 h-16 mx-auto mb-4 text-accent" />
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent mb-2"
+                style={{ fontFamily: "'Dancing Script', cursive" }}>
+              🔒 Gallery Access 🔒
+            </h1>
+            <p className="text-muted-foreground text-sm">Enter password to view gallery</p>
+          </div>
+          
+          <div className="space-y-4">
+            <Input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handlePasswordSubmit()}
+              className="text-center"
+            />
+            
+            {showPasswordError && (
+              <p className="text-red-500 text-sm text-center animate-pulse">
+                Incorrect password! Try again.
+              </p>
+            )}
+            
+            <div className="flex gap-3">
+              <Link href="/" className="flex-1">
+                <Button variant="outline" className="w-full hover-elevate">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back Home
+                </Button>
+              </Link>
+              
+              <Button 
+                onClick={handlePasswordSubmit}
+                className="flex-1 bg-gradient-to-r from-accent to-primary hover-elevate shadow-lg"
+              >
+                Enter Gallery
+              </Button>
+            </div>
+          </div>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent/20 via-primary/10 to-accent/30 relative overflow-hidden">

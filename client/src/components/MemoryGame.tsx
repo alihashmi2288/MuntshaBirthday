@@ -190,14 +190,15 @@ export default function MemoryGame() {
     if (isProcessing || selectedCards.length >= 2) return;
     
     const card = gameCards.find(c => c.id === cardId);
-    if (!card || card.isFlipped || card.isMatched) return;
+    if (!card || card.isFlipped || card.isMatched || selectedCards.includes(cardId)) return;
 
     playFlipSound();
     
-    const newCards = gameCards.map(c => 
-      c.id === cardId ? { ...c, isFlipped: true } : c
+    setGameCards(prevCards => 
+      prevCards.map(c => 
+        c.id === cardId ? { ...c, isFlipped: true } : c
+      )
     );
-    setGameCards(newCards);
     
     const newSelectedCards = [...selectedCards, cardId];
     setSelectedCards(newSelectedCards);
@@ -209,28 +210,31 @@ export default function MemoryGame() {
       const matchTimeout = setTimeout(() => {
         checkForMatch(newSelectedCards);
         timeoutsRef.current.delete(matchTimeout);
-      }, 600);
+      }, 1000);
       timeoutsRef.current.add(matchTimeout);
     }
   };
 
   const checkForMatch = (selectedIds: number[]) => {
     const [firstId, secondId] = selectedIds;
-    const firstCard = gameCards.find(c => c.id === firstId);
-    const secondCard = gameCards.find(c => c.id === secondId);
+    const currentCards = gameCards;
+    const firstCard = currentCards.find(c => c.id === firstId);
+    const secondCard = currentCards.find(c => c.id === secondId);
 
     if (firstCard && secondCard && firstCard.emoji === secondCard.emoji) {
       // Match found
       playMatchSound();
       
-      const newCards = gameCards.map(c => {
-        if (c.id === firstId || c.id === secondId) {
-          return { ...c, isMatched: true };
-        }
-        return c;
+      setGameCards(prevCards => {
+        const newCards = prevCards.map(c => {
+          if (c.id === firstId || c.id === secondId) {
+            return { ...c, isMatched: true };
+          }
+          return c;
+        });
+        return newCards;
       });
       
-      setGameCards(newCards);
       const newMatchedPairs = matchedPairs + 1;
       setMatchedPairs(newMatchedPairs);
       
@@ -247,15 +251,17 @@ export default function MemoryGame() {
     } else {
       // No match - flip cards back
       const flipBackTimeout = setTimeout(() => {
-        const newCards = gameCards.map(c => {
-          if (c.id === firstId || c.id === secondId) {
-            return { ...c, isFlipped: false };
-          }
-          return c;
+        setGameCards(prevCards => {
+          const newCards = prevCards.map(c => {
+            if (c.id === firstId || c.id === secondId) {
+              return { ...c, isFlipped: false };
+            }
+            return c;
+          });
+          return newCards;
         });
-        setGameCards(newCards);
         timeoutsRef.current.delete(flipBackTimeout);
-      }, 400);
+      }, 1000);
       timeoutsRef.current.add(flipBackTimeout);
     }
     
@@ -417,7 +423,7 @@ export default function MemoryGame() {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         .game-card {
           perspective: 1000px;
           animation: slideUp 0.6s ease-out forwards;
