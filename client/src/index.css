@@ -400,3 +400,84 @@
 .animation-delay-900 { animation-delay: 0.9s; }
 .animation-delay-1000 { animation-delay: 1s; }
 .animation-delay-1500 { animation-delay: 1.5s; }
+
+/* Romantic and celebratory keyframes */
+@keyframes candleFlicker {
+  0%, 100% { transform: scale(1) rotate(-1deg); filter: drop-shadow(0 0 8px rgba(255, 183, 3, 0.9)); }
+  25% { transform: scale(1.08, 0.94) rotate(1deg); filter: drop-shadow(0 0 12px rgba(255, 107, 139, 0.9)); }
+  50% { transform: scale(0.95, 1.05) rotate(-2deg); filter: drop-shadow(0 0 6px rgba(255, 183, 3, 0.8)); }
+  75% { transform: scale(1.04, 0.98) rotate(2deg); filter: drop-shadow(0 0 14px rgba(255, 183, 3, 1)); }
+}
+
+@keyframes smokeRise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0.8; }
+  50% { transform: translateY(-20px) translateX(6px) scale(1.2); opacity: 0.4; }
+  100% { transform: translateY(-45px) translateX(-4px) scale(1.8); opacity: 0; }
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 139, 0.3), 0 0 30px rgba(255, 183, 3, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(255, 107, 139, 0.5), 0 0 45px rgba(255, 183, 3, 0.35); }
+}
+
+@keyframes ribbonUntie {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15) rotate(5deg); }
+  100% { transform: scale(0) rotate(25deg); opacity: 0; }
+}
+
+.animate-candle {
+  animation: candleFlicker 1.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.animate-smoke {
+  animation: smokeRise 1.2s ease-out forwards;
+}
+
+.animate-gentleFloat {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Glassmorphic and romantic card utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 182, 193, 0.45);
+}
+
+.dark .glass-panel {
+  background: rgba(26, 16, 47, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.polaroid-card {
+  background: #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dark .polaroid-card {
+  background: #231936;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.font-handwriting {
+  font-family: 'Dancing Script', cursive;
+}
+
+.font-fun {
+  font-family: 'Fredoka', cursive, sans-serif;
+}
