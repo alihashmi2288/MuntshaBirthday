@@ -263,11 +263,11 @@ export default function EnhancedFireworks() {
       {isPlaying && (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 z-30 text-center animate-slideUp pointer-events-none">
           <h2 className="text-3xl sm:text-5xl font-bold font-handwriting text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-amber-300 drop-shadow-[0_0_15px_rgba(255,107,139,0.8)]">
-            ✨ Happy Birthday Muntsha! ✨
+            ✨ Happy 19th Birthday Muntsha! (2026) ✨
           </h2>
           <p className="text-xs sm:text-sm text-pink-200/90 font-fun mt-1 flex items-center justify-center gap-1">
             <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400 animate-pulse" />
-            Lighting the sky for my one and only love
+            Lighting the sky to celebrate 19 wonderful years of Muntsha
           </p>
         </div>
       )}
@@ -278,17 +278,17 @@ export default function EnhancedFireworks() {
           <div className="text-center glass-panel rounded-3xl p-8 border-2 border-pink-500/30 shadow-2xl backdrop-blur-2xl">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold uppercase tracking-wider mb-3">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" />
-              Celebration Light Show
+              Muntsha Turns 19 &bull; 2026 Light Show
             </span>
 
             <h1
               className="text-4xl sm:text-5xl font-bold font-handwriting text-white mb-3 drop-shadow-md"
               data-testid="text-fireworks-title"
             >
-              🎆 Happy Birthday Muntsha! 🎆
+              🎆 Happy 19th Birthday Muntsha! 🎆
             </h1>
             <p className="text-sm sm:text-base text-zinc-300 mb-6 font-medium">
-              Watch the night sky burst into sparkling colors and romantic lights just for you!
+              Watch the night sky burst into sparkling colors to celebrate you turning 19 in 2026!
             </p>
 
             <div className="flex flex-wrap gap-3 justify-center mb-4">

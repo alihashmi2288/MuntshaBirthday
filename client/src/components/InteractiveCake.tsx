@@ -146,15 +146,15 @@ export default function InteractiveCake() {
 
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 font-semibold text-xs tracking-wide uppercase mb-3">
-            <Sparkles className="w-3.5 h-3.5 animate-spin" />
-            Interactive Cake Ceremony
+            <Sparkles className="w-3.5 h-3.5 animate-spin text-amber-500" />
+            Muntsha Turns 19 &bull; 2026 Cake Ceremony
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-bold font-handwriting text-foreground mb-2">
-            Make a Wish & Blow the Candles!
+            Make a Wish for Year 19 &amp; Blow the Candles! 🎂
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground mb-6">
-            Tap each candle flame or click &quot;Blow All&quot; to make your secret birthday wish come true.
+            Blow the 19th birthday candles to make your special 2026 birthday wish come true.
           </p>
 
           {/* Interactive Cake Illustration */}
@@ -217,7 +217,7 @@ export default function InteractiveCake() {
               {/* Bottom Layer */}
               <div className="w-64 sm:w-72 h-20 bg-gradient-to-r from-amber-100 via-rose-100 to-amber-100 dark:from-amber-950/70 dark:via-rose-950/50 dark:to-amber-950/70 rounded-2xl relative shadow-lg border border-pink-300/60 flex items-center justify-center overflow-hidden">
                 <span className="font-handwriting text-xl sm:text-2xl font-bold text-rose-600 dark:text-rose-300 tracking-wider">
-                  Muntsha
+                  Muntsha &bull; Sweet 19
                 </span>
                 {/* Chocolate and cream decorative piping */}
                 <div className="absolute bottom-0 inset-x-0 h-4 bg-gradient-to-r from-amber-400/30 via-pink-400/30 to-amber-400/30" />
@@ -232,7 +232,7 @@ export default function InteractiveCake() {
               <div className="mt-4 p-3 bg-rose-50 dark:bg-rose-950/40 rounded-xl border border-rose-200 dark:border-rose-800 animate-slideUp flex items-center gap-3">
                 <span className="text-3xl">🍰</span>
                 <p className="text-sm font-semibold text-rose-700 dark:text-rose-300 text-left">
-                  Here is the sweetest slice for the sweetest girl! Always stay smiling, Muntsha!
+                  Here is the sweetest 19th birthday slice for Muntsha! May your 19th year be full of blessings!
                 </p>
               </div>
             )}
@@ -255,10 +255,10 @@ export default function InteractiveCake() {
                 <div className="p-4 bg-gradient-to-br from-pink-50 to-rose-100 dark:from-rose-950/60 dark:to-pink-900/40 rounded-2xl border border-pink-300/80 shadow-inner">
                   <div className="text-3xl mb-1">🎉✨💖</div>
                   <h3 className="text-xl font-bold font-handwriting text-rose-600 dark:text-rose-300 mb-1">
-                    Your Wish is Locked in My Heart!
+                    Your 19th Birthday Wish is Locked in My Heart!
                   </h3>
                   <p className="text-sm text-zinc-700 dark:text-zinc-300 max-w-md mx-auto">
-                    May Allah bless this year of your life with boundless peace, health, laughter, and every dream you cherish. You deserve the entire galaxy!
+                    Happy 19th Birthday Muntsha! May Allah bless your 19th year in 2026 with boundless peace, health, laughter, and every dream you cherish. You deserve the entire galaxy!
                   </p>
                 </div>
 

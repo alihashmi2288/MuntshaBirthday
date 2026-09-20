@@ -276,16 +276,16 @@ export default function MemoryGame() {
           <div className="text-center mb-6">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 text-xs font-bold uppercase tracking-wider mb-2">
               <Sparkles className="w-3.5 h-3.5" />
-              Shin Chan Match Challenge
+              Muntsha Turns 19 &bull; 2026 Match Challenge
             </span>
             <h1
               className="text-3xl sm:text-4xl font-bold font-handwriting text-rose-600 dark:text-rose-300 mb-1"
               data-testid="text-game-title"
             >
-              🎉 Birthday Memory Match 🎉
+              🎉 Happy 19th Birthday, Muntsha! 🎉
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground">
-              Match all the birthday symbols for a special victory surprise!
+              Celebrating 19 beautiful years! Match all pairs for a special victory message!
             </p>
           </div>
 
@@ -381,18 +381,18 @@ export default function MemoryGame() {
             </div>
 
             <h2 className="text-3xl font-bold font-handwriting text-rose-600 dark:text-rose-300 mb-3">
-              🎉 Happy Birthday, Muntsha! 🎉
+              🎉 Happy 19th Birthday, Muntsha! 🎉
             </h2>
 
             <div className="bg-rose-50/80 dark:bg-zinc-800/80 p-4 mb-5 rounded-2xl border border-pink-200 dark:border-pink-900 text-xs sm:text-sm leading-relaxed text-zinc-700 dark:text-zinc-200">
               <p className="mb-2">
-                <strong className="text-rose-600 dark:text-rose-400">You won with {moves} moves!</strong>
+                <strong className="text-rose-600 dark:text-rose-400">Level 19 Unlocked with {moves} moves! 🌸</strong>
               </p>
               <p className="mb-2">
-                Muntsha, you are the sweetest and most amazing person in my universe. May Allah always keep you smiling, healthy, and blessed with eternal joy.
+                Muntsha, congratulations on turning 19! May 2026 be your happiest, brightest, and most successful year yet. You are the greatest gift in my life!
               </p>
               <p className="font-bold text-rose-600 dark:text-rose-400 font-handwriting text-lg">
-                ✨ Always and forever with you &bull; Ali ✨
+                ✨ Forever with you in 2026 &amp; always &bull; Ali ✨
               </p>
             </div>
 

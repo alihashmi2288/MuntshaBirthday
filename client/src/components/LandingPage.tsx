@@ -79,10 +79,10 @@ export default function LandingPage() {
         <Card className="w-full p-6 sm:p-10 md:p-12 glass-panel rounded-3xl border-2 border-pink-300/60 dark:border-pink-900/40 shadow-xl animate-slideUp relative overflow-hidden">
           
           {/* Top celebratory ribbon */}
-          <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-500/15 via-pink-500/15 to-amber-500/15 border border-pink-300/50 text-rose-600 dark:text-rose-300 text-xs sm:text-sm font-semibold tracking-wide">
+          <div className="flex flex-wrap justify-center items-center gap-2 mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-500/15 via-pink-500/15 to-amber-500/15 border border-pink-300/50 text-rose-600 dark:text-rose-300 text-xs sm:text-sm font-bold tracking-wide">
               <Sparkles className="w-4 h-4 text-amber-500 animate-spin" />
-              Celebrating Muntsha&apos;s Special Day &bull; With All My Love
+              ✨ Muntsha Turns 19 &bull; Birthday 2026 Edition ✨
               <Sparkles className="w-4 h-4 text-amber-500 animate-spin" />
             </span>
           </div>
@@ -90,11 +90,14 @@ export default function LandingPage() {
           {/* Title Section */}
           <div className="text-center mb-8">
             <h1
-              className="text-4xl sm:text-6xl md:text-7xl font-bold font-handwriting bg-gradient-to-r from-rose-600 via-pink-500 to-amber-500 bg-clip-text text-transparent mb-4 drop-shadow-sm"
+              className="text-4xl sm:text-6xl md:text-7xl font-bold font-handwriting bg-gradient-to-r from-rose-600 via-pink-500 to-amber-500 bg-clip-text text-transparent mb-2 drop-shadow-sm"
               data-testid="text-main-title"
             >
-              🎉 Happy Birthday, My Love! 🎉
+              🎉 Happy 19th Birthday, Muntsha! 🎉
             </h1>
+            <div className="inline-block px-3.5 py-1 rounded-full bg-rose-500 text-white font-fun text-xs sm:text-sm font-bold shadow-md transform -rotate-1 mb-3">
+              🌸 Officially 19 &amp; More Gorgeous Than Ever! 🌸
+            </div>
 
             {/* Profile Avatars Section */}
             <div className="flex justify-center items-center gap-4 sm:gap-8 my-6">
@@ -148,13 +151,13 @@ export default function LandingPage() {
             </div>
 
             <p className="text-base sm:text-lg text-foreground/80 font-medium max-w-xl mx-auto mb-2">
-              Welcome to your magical birthday world! Shin Chan and I have prepared special adventures, romantic secrets, and surprises just for you!
+              Welcome to your magical 19th birthday world! Shin Chan and I have prepared special adventures, romantic secrets, and surprises just for you in 2026!
             </p>
             <p
               className="text-rose-600 dark:text-rose-400 font-handwriting font-bold text-2xl sm:text-3xl"
               data-testid="text-love-message"
             >
-              Created with infinite love by Syed Ali Hashmi 💖
+              Cheers to 19 beautiful years &bull; Forever with Syed Ali Hashmi 💖
             </p>
           </div>
 

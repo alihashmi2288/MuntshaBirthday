@@ -26,7 +26,7 @@ export default function LoveLetter() {
   const letterContent = [
     "My Dearest Muntsha,",
 
-    "Happy Birthday, my love! 🎉 Today marks another year of your beautiful existence, and I couldn't be more grateful to celebrate this special day with you.",
+    "Happy 19th Birthday, my love! 🎉 Today in 2026 marks 19 wonderful years of your beautiful existence, and I couldn't be more grateful to celebrate this special milestone with you.",
 
     "You are the best thing that has ever happened to me. Every day with you feels like a blessing, and I find myself falling in love with you more and more with each passing moment.",
 
