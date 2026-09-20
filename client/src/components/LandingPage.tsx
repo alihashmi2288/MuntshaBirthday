@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Link } from 'wouter';
@@ -13,74 +13,58 @@ import SparkleTrail from './SparkleTrail';
 import shinChanImg from '@assets/generated_images/Shin_Chan_character_image_5f6a317d.png';
 import muntshaPic from '@assets/muntsha-photo.jpg';
 
-interface FloatingHeart {
-  id: number;
-  left: number;
-  emoji: string;
-  duration: number;
-  fontSize: number;
-}
-
 export default function LandingPage() {
-  const [floatingHearts, setFloatingHearts] = useState<FloatingHeart[]>([]);
   const [activeTab, setActiveTab] = useState<'adventures' | 'cake' | 'lovejar' | 'gift'>('adventures');
-  const timeoutsRef = useRef<Set<NodeJS.Timeout>>(new Set());
 
-  useEffect(() => {
-    const hearts = ['💖', '💕', '💗', '✨', '💝', '🎈', '🎂', '🎉', '🌸', '💐'];
-
-    const interval = setInterval(() => {
-      const newHeart: FloatingHeart = {
-        id: Date.now() + Math.random(),
-        left: Math.random() * 96 + 2,
-        emoji: hearts[Math.floor(Math.random() * hearts.length)],
-        duration: Math.random() * 3 + 6,
-        fontSize: Math.random() * 12 + 16,
-      };
-
-      setFloatingHearts((prev) => [...prev.slice(-15), newHeart]);
-
-      const heartTimeout = setTimeout(() => {
-        setFloatingHearts((prev) => prev.filter((heart) => heart.id !== newHeart.id));
-        timeoutsRef.current.delete(heartTimeout);
-      }, 9000);
-      timeoutsRef.current.add(heartTimeout);
-    }, 1800);
-
-    return () => {
-      clearInterval(interval);
-      timeoutsRef.current.forEach((timeout) => clearTimeout(timeout));
-      timeoutsRef.current.clear();
-    };
-  }, []);
+  // Static CSS floating hearts rendered once — 0 CPU cost, 0 React re-renders
+  const staticHearts = useMemo(() => [
+    { id: 1, left: 8, emoji: '💖', duration: 9, delay: 0, size: 20 },
+    { id: 2, left: 22, emoji: '🌸', duration: 11, delay: 2, size: 16 },
+    { id: 3, left: 35, emoji: '💕', duration: 8, delay: 4, size: 22 },
+    { id: 4, left: 50, emoji: '✨', duration: 12, delay: 1, size: 18 },
+    { id: 5, left: 65, emoji: '🎂', duration: 10, delay: 3, size: 24 },
+    { id: 6, left: 78, emoji: '💝', duration: 9, delay: 5, size: 20 },
+    { id: 7, left: 90, emoji: '🎉', duration: 11, delay: 2.5, size: 22 },
+  ], []);
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden bg-gradient-to-br from-rose-100/60 via-pink-50/40 to-amber-100/50 dark:from-zinc-950 dark:via-purple-950/30 dark:to-zinc-900 transition-colors duration-500">
-      {/* Sparkle Trail on mouse / touch */}
+    <div className="min-h-screen relative overflow-x-hidden bg-gradient-to-br from-rose-100/60 via-pink-50/40 to-amber-100/50 dark:from-zinc-950 dark:via-purple-950/30 dark:to-zinc-900 transition-colors duration-300">
+      {/* 60fps Canvas Sparkle Trail */}
       <SparkleTrail />
 
       {/* Floating BGM Player */}
       <FloatingMusicPlayer />
 
-      {/* Theme Toggle & Ali's Note Badge */}
+      {/* Theme Toggle */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
         <ThemeToggle />
       </div>
 
-      {/* Ambient background glow orbs */}
-      <div className="fixed -top-24 -left-24 w-96 h-96 bg-pink-300/25 dark:bg-pink-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed -bottom-24 -right-24 w-96 h-96 bg-amber-300/25 dark:bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Lightweight GPU-friendly ambient background glows without heavy blur-3xl */}
+      <div
+        className="fixed -top-20 -left-20 w-80 h-80 pointer-events-none rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 182, 193, 0.25) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="fixed -bottom-20 -right-20 w-80 h-80 pointer-events-none rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 214, 102, 0.22) 0%, transparent 70%)',
+        }}
+      />
 
-      {/* Floating Celebratory Hearts */}
-      <div className="fixed inset-0 pointer-events-none z-10">
-        {floatingHearts.map((heart) => (
+      {/* Pure CSS Floating Celebratory Hearts (Zero React re-render overhead) */}
+      <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+        {staticHearts.map((heart) => (
           <div
             key={heart.id}
-            className="absolute opacity-40 animate-[floatUp_8s_linear_infinite]"
+            className="absolute opacity-35 animate-[floatUp_8s_linear_infinite]"
             style={{
               left: `${heart.left}%`,
-              fontSize: `${heart.fontSize}px`,
+              fontSize: `${heart.size}px`,
               animationDuration: `${heart.duration}s`,
+              animationDelay: `${heart.delay}s`,
             }}
           >
             {heart.emoji}
@@ -92,7 +76,7 @@ export default function LandingPage() {
       <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-10 relative z-20 max-w-5xl mx-auto py-12">
         
         {/* Hero Card */}
-        <Card className="w-full p-6 sm:p-10 md:p-12 glass-panel rounded-3xl border-2 border-pink-300/60 dark:border-pink-900/40 shadow-2xl animate-slideUp relative overflow-hidden">
+        <Card className="w-full p-6 sm:p-10 md:p-12 glass-panel rounded-3xl border-2 border-pink-300/60 dark:border-pink-900/40 shadow-xl animate-slideUp relative overflow-hidden">
           
           {/* Top celebratory ribbon */}
           <div className="flex justify-center mb-4">
@@ -117,11 +101,13 @@ export default function LandingPage() {
               {/* Muntsha's Photo */}
               <FloatingElement className="relative group">
                 <div className="relative">
-                  <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-500" />
+                  <div className="absolute -inset-1 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full blur-xs opacity-70 group-hover:opacity-100 transition duration-300" />
                   <img
                     src={muntshaPic}
                     alt="Muntsha"
-                    className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full object-cover border-4 border-white dark:border-zinc-800 shadow-2xl transition-all duration-300 group-hover:scale-105"
+                    loading="eager"
+                    decoding="async"
+                    className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full object-cover border-4 border-white dark:border-zinc-800 shadow-xl transition-transform duration-300 group-hover:scale-105"
                     data-testid="img-muntsha"
                   />
                 </div>
@@ -144,11 +130,13 @@ export default function LandingPage() {
               {/* Shin Chan */}
               <FloatingElement className="relative group" animationDelay={0.5}>
                 <div className="relative">
-                  <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-400 to-rose-400 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-500" />
+                  <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 to-rose-400 rounded-full blur-xs opacity-70 group-hover:opacity-100 transition duration-300" />
                   <img
                     src={shinChanImg}
                     alt="Shin Chan"
-                    className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full object-cover border-4 border-white dark:border-zinc-800 shadow-2xl transition-all duration-300 group-hover:scale-105"
+                    loading="eager"
+                    decoding="async"
+                    className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full object-cover border-4 border-white dark:border-zinc-800 shadow-xl transition-transform duration-300 group-hover:scale-105"
                     data-testid="img-shinchan-landing"
                   />
                 </div>
@@ -224,7 +212,7 @@ export default function LandingPage() {
               {/* Play Game Option */}
               <Link href="/game" className="h-full">
                 <Card
-                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-pink-200 hover:border-rose-400 shadow-lg rounded-2xl flex flex-col justify-between"
+                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-pink-200 hover:border-rose-400 shadow-md rounded-2xl flex flex-col justify-between"
                   data-testid="card-play-game"
                 >
                   <div>
@@ -248,7 +236,7 @@ export default function LandingPage() {
               {/* Fireworks Option */}
               <Link href="/fireworks" className="h-full">
                 <Card
-                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-amber-200 hover:border-amber-400 shadow-lg rounded-2xl flex flex-col justify-between"
+                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-amber-200 hover:border-amber-400 shadow-md rounded-2xl flex flex-col justify-between"
                   data-testid="card-fireworks"
                 >
                   <div>
@@ -272,7 +260,7 @@ export default function LandingPage() {
               {/* Letter Option */}
               <Link href="/letter" className="h-full">
                 <Card
-                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-rose-200 hover:border-rose-400 shadow-lg rounded-2xl flex flex-col justify-between"
+                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-rose-200 hover:border-rose-400 shadow-md rounded-2xl flex flex-col justify-between"
                   data-testid="card-letter"
                 >
                   <div>
@@ -296,7 +284,7 @@ export default function LandingPage() {
               {/* Gallery Option */}
               <Link href="/gallery" className="h-full">
                 <Card
-                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-purple-200 hover:border-purple-400 shadow-lg rounded-2xl flex flex-col justify-between"
+                  className="h-full p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 glass-panel border-purple-200 hover:border-purple-400 shadow-md rounded-2xl flex flex-col justify-between"
                   data-testid="card-gallery"
                 >
                   <div>

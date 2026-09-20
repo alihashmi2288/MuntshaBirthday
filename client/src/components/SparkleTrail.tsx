@@ -1,86 +1,108 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface Particle {
-  id: number;
   x: number;
   y: number;
   size: number;
   emoji: string;
   opacity: number;
+  vx: number;
+  vy: number;
 }
 
 export default function SparkleTrail() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const emojis = ['✨', '💖', '⭐', '🌸', '💫', '💕'];
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number | null = null;
+    let particles: Particle[] = [];
+    const emojis = ['✨', '💖', '⭐', '🌸', '💕'];
     let lastTime = 0;
 
-    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
+    const resize = () => {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (particles.length > 0) {
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.opacity -= 0.025;
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.opacity > 0) {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.font = `${p.size}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(p.emoji, p.x, p.y);
+            ctx.restore();
+          }
+        }
+
+        particles = particles.filter((p) => p.opacity > 0);
+        animId = requestAnimationFrame(render);
+      } else {
+        animId = null;
+      }
+    };
+
+    const addParticle = (x: number, y: number) => {
       const now = performance.now();
-      if (now - lastTime < 45) return; // Throttle to maintain 60fps
+      if (now - lastTime < 50) return; // Throttle to 20 additions/sec
       lastTime = now;
 
-      let clientX = 0;
-      let clientY = 0;
-
-      if ('touches' in e && e.touches.length > 0) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      } else if ('clientX' in e) {
-        clientX = e.clientX;
-        clientY = e.clientY;
-      } else {
-        return;
-      }
-
-      const newParticle: Particle = {
-        id: Math.random() + Date.now(),
-        x: clientX + (Math.random() * 16 - 8),
-        y: clientY + (Math.random() * 16 - 8),
-        size: Math.random() * 12 + 14,
+      particles.push({
+        x: x + (Math.random() * 12 - 6),
+        y: y + (Math.random() * 12 - 6),
+        size: Math.random() * 6 + 14,
         emoji: emojis[Math.floor(Math.random() * emojis.length)],
-        opacity: 1,
-      };
+        opacity: 0.9,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: -Math.random() * 1.2 - 0.4,
+      });
 
-      setParticles((prev) => [...prev.slice(-18), newParticle]);
+      if (!animId) {
+        animId = requestAnimationFrame(render);
+      }
+    };
+
+    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
+      if ('touches' in e && e.touches.length > 0) {
+        addParticle(e.touches[0].clientX, e.touches[0].clientY);
+      } else if ('clientX' in e) {
+        addParticle(e.clientX, e.clientY);
+      }
     };
 
     window.addEventListener('mousemove', handlePointerMove, { passive: true });
     window.addEventListener('touchmove', handlePointerMove, { passive: true });
 
-    const cleanupInterval = setInterval(() => {
-      setParticles((prev) =>
-        prev
-          .map((p) => ({ ...p, opacity: p.opacity - 0.15, y: p.y - 1.5 }))
-          .filter((p) => p.opacity > 0)
-      );
-    }, 60);
-
     return () => {
+      window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handlePointerMove);
       window.removeEventListener('touchmove', handlePointerMove);
-      clearInterval(cleanupInterval);
+      if (animId) cancelAnimationFrame(animId);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-      {particles.map((p) => (
-        <span
-          key={p.id}
-          className="fixed transform -translate-x-1/2 -translate-y-1/2 select-none transition-transform duration-300"
-          style={{
-            left: `${p.x}px`,
-            top: `${p.y}px`,
-            fontSize: `${p.size}px`,
-            opacity: p.opacity,
-            filter: 'drop-shadow(0 0 6px rgba(255,107,139,0.7))',
-          }}
-        >
-          {p.emoji}
-        </span>
-      ))}
-    </div>
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-50 select-none"
+    />
   );
 }
